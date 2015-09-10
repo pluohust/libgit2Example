@@ -776,14 +776,15 @@ void cmd_status()
     git_repository *repo = NULL;
 
     git_libgit2_init();
-    git_repository_open(&repo, LOCALGIT);
+    git_repository_open(&repo, "G:\\");
+    //git_repository_open(&repo, "E:\\cpp_app\\BoostApp");
 
     //////////////////////////////////////////////////////////////////////////
     git_status_list *status;
     git_status_options statusopt = GIT_STATUS_OPTIONS_INIT;
     git_status_list_new(&status, repo, &statusopt);
 
-    size_t maxi = git_status_list_entrycount(status);
+    int maxi = git_status_list_entrycount(status);
     //maxi > 0时才需要提交
 
     git_status_list_free(status);
