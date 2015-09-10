@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="libgit2Example"
-	ProjectGUID="{83BB34D1-5113-4358-8C02-C08598A18309}"
-	RootNamespace="TestInit"
+	Name="gitStatus"
+	ProjectGUID="{1204A4F8-B473-4DE8-A6A3-00B373E28A9A}"
+	RootNamespace="gitStatus"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -49,7 +49,6 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				CompileAs="2"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -118,6 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="..\libgit2My\include\git2;..\libgit2My\include;..\libgit2My"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -136,7 +136,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="git2.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\libgit2My\lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -170,11 +172,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\base.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\password.txt"
+			RelativePath=".\gitStatus.cpp"
 			>
 		</File>
 	</Files>

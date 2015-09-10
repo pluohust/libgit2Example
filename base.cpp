@@ -27,7 +27,8 @@
 #define GIT_COMMITTER_EMAIL_ENVIRONMENT "GIT_COMMITTER_EMAIL"
 #define GIT_COMMITTER_DATE_ENVIRONMENT "GIT_COMMITTER_DATE"
 
-#define LOCALGIT "DemoGit"
+//#define LOCALGIT "E:\\cpp_app\\CxImageFull"
+#define LOCALGIT "E:\\cpp_app\\BoostApp"
 #define ORIGINURL "https://github.com/xiangism/DemoGit.git"
 
 static int cred_acquire_cb(git_cred **out,
@@ -498,7 +499,7 @@ int cmd_merge_repo(git_repository *repo)
 		if ((err = git_checkout_tree(repo, (git_object*)commit_tree_obj, &checkout_options)))
 			goto out;
 
-		if ((err = git_reference_set_target(&new_ref, head_ref, git_commit_id((git_commit*)commit_obj), NULL, NULL)))
+		if ((err = git_reference_set_target(&new_ref, head_ref, git_commit_id((git_commit*)commit_obj), NULL)))
 			goto out;
 
 		goto out;
@@ -520,7 +521,7 @@ int cmd_merge_repo(git_repository *repo)
 			argv[0] = "commit";
 			argv[1] = "-m";
 			argv[2] = message;
-			cmd_commit_repo(repo, 3, argv);
+			//cmd_commit_repo(repo, 3, argv);
 		}
 	} else
 	{
@@ -770,6 +771,27 @@ void cmd_commit()
     git_libgit2_shutdown();
 }
 
+void cmd_status()
+{
+    git_repository *repo = NULL;
+
+    git_libgit2_init();
+    git_repository_open(&repo, LOCALGIT);
+
+    //////////////////////////////////////////////////////////////////////////
+    git_status_list *status;
+    git_status_options statusopt = GIT_STATUS_OPTIONS_INIT;
+    git_status_list_new(&status, repo, &statusopt);
+
+    size_t maxi = git_status_list_entrycount(status);
+    //maxi > 0时才需要提交
+
+    git_status_list_free(status);
+
+    git_repository_free(repo);
+    git_libgit2_shutdown();
+}
+
 typedef void (*git_fun)();
 
 struct cmd_struct {
@@ -777,7 +799,7 @@ struct cmd_struct {
     git_fun fun;
 };
 
-int main(int argc, char *argv[])
+void cmd_command(int argc, char **argv)
 {
     int i;
     struct cmd_struct cmds[] = {
@@ -793,16 +815,25 @@ int main(int argc, char *argv[])
 
     if (argc != 2) {
         printf("Please use the command as ./base clone, ./base add for running");
-        return 1;
+        return;
     }
-    
-
     for (i = 0; cmds[i].cmd != NULL; ++i) {
         if (!strcmp(argv[1], cmds[i].cmd)) {
             cmds[i].fun();
             break;
         }
     }
+}
+
+int main(int argc, char *argv[])
+{
+    //cmd_command(argc, argv);
+    cmd_status();
+    //cmd_add();
+    //cmd_commit();
+    //cmd_push();
+
+    system("pause");
 	return 0;
 }
 
