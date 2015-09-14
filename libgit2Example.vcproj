@@ -62,9 +62,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="git2d.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\libgit2My\lib"
+				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"

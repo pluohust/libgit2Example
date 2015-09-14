@@ -776,13 +776,18 @@ void cmd_status()
     git_repository *repo = NULL;
 
     git_libgit2_init();
-    git_repository_open(&repo, "G:\\");
+    git_repository_open(&repo, "G:");
     //git_repository_open(&repo, "E:\\cpp_app\\BoostApp");
+
+    const git_error *error0 = giterr_last();
 
     //////////////////////////////////////////////////////////////////////////
     git_status_list *status;
     git_status_options statusopt = GIT_STATUS_OPTIONS_INIT;
-    git_status_list_new(&status, repo, &statusopt);
+    int r = git_status_list_new(&status, repo, &statusopt);
+
+    
+    const git_error *error = giterr_last();
 
     int maxi = git_status_list_entrycount(status);
     //maxi > 0时才需要提交
